@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1078541727808",
+    "firebase_url": "https://touristo-20581.firebaseio.com",
+    "project_id": "touristo-20581",
+    "storage_bucket": "touristo-20581.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078541727808:android:831c339d4b3352e4",
+        "android_client_info": {
+          "package_name": "com.wolf.touristo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1078541727808-iugq4t20f69ctcbjc0iq57aef4nrjqm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wolf.touristo",
+            "certificate_hash": "0a7a8fc1ed64841f9a566501c1aab6c8d6f48a32"
+          }
+        },
+        {
+          "client_id": "1078541727808-ercemkf3v7egvhqnul2sivgsfhl3bg64.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo4R1N7beKEw-eRm5elCuAMEOKT4B4I2o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1078541727808-ercemkf3v7egvhqnul2sivgsfhl3bg64.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

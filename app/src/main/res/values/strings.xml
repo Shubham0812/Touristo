@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TOURISTO</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="info">Touristo is a simple and real time application which helps you to find your way around the globe.</string>
+</resources>
