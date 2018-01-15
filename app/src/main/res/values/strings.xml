@@ -8,7 +8,7 @@
 
 
     <string-array name="context_view">
-        <item>-----------------------------------</item>
+        <item>------------------------------</item>
         <item>Bangalore</item>
         <item>Delhi</item>
         <item>Mumbai</item>

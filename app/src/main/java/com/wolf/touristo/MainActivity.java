@@ -13,11 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,11 +30,12 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        user = getIntent().getStringExtra("User");
        decorView = getWindow().getDecorView();
 
 
@@ -46,11 +45,10 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        FirebaseUser user = mFirebaseAuth.getCurrentUser();
         if (user != null) {
-            Toast.makeText(MainActivity.this, "Signed", Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(MainActivity.this, "Signed", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(MainActivity.this, " Not Signed", Toast.LENGTH_SHORT).show();
+            //      Toast.makeText(MainActivity.this, " Not Signed", Toast.LENGTH_SHORT).show();
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -100,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.sign_out_menu:
                 AuthUI.getInstance().signOut(this);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

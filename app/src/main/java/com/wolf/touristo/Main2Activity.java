@@ -29,7 +29,12 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mFirebaseAuth.getCurrentUser();
+        if (user != null) {
+            Intent it = new Intent(Main2Activity.this, MainActivity.class);
+            startActivity(it);
+        }
 
 
         tv1 = (TextView)findViewById(R.id.textView);
@@ -38,11 +43,13 @@ public class Main2Activity extends AppCompatActivity {
 
         b2 =(Button)findViewById(R.id.button2);
 
-        mFirebaseAuth = FirebaseAuth.getInstance();
+
         b1.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent it = new Intent(Main2Activity.this,MainActivity.class);
+            it.putExtra("User", mUsername);
+            spinner.setSelection(0);
             startActivity(it);
         }
     });
@@ -64,14 +71,14 @@ public class Main2Activity extends AppCompatActivity {
                     // Toast.makeText(MainActivity.this, "You're now signed in. Welcome to FriendlyChat.", Toast.LENGTH_SHORT).show();
                     onSignedInInitialize(user.getDisplayName());
                 } else {
-                    // User is signed out
-                    Toast.makeText(Main2Activity.this, "moI!", Toast.LENGTH_SHORT).show();
+                    // User is signed ou
                     onSignedOutCleanup();
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
                                     .setIsSmartLockEnabled(false)
-                                    .setTheme(R.style.AppTheme)
+                                    .setTheme(R.style.CustomTheme)
+                                    .setLogo(R.drawable.home)
                                     .setProviders(
                                             AuthUI.EMAIL_PROVIDER,
                                             AuthUI.GOOGLE_PROVIDER,
@@ -110,7 +117,7 @@ public class Main2Activity extends AppCompatActivity {
                 Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 // Sign in was canceled by the user, finish the activity
-                Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
+                //          Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

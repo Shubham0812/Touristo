@@ -2,26 +2,15 @@ package com.wolf.touristo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -36,10 +25,12 @@ import static android.app.Activity.RESULT_OK;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
+    public static final int RC_SIGN_IN = 1;
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static final int RC_SIGN_IN = 1;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,7 +70,7 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Signed in!", Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 // Sign in was canceled by the user, finish the activity
-                Toast.makeText(getContext(), "Sign in canceled", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(getContext(), "Sign in canceled", Toast.LENGTH_SHORT).show();
                 getFragmentManager().popBackStack();
             }
         }
@@ -90,7 +81,15 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser b = mFirebaseAuth.getCurrentUser();
+        if (b != null) {
+        }
+        //      Toast.makeText(getContext(), "Ye", Toast.LENGTH_SHORT).show();
+        else {
+        }
+        //   Toast.makeText(getContext(), "Ne", Toast.LENGTH_SHORT).show();
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 

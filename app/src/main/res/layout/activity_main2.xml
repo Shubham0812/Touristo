@@ -40,18 +40,28 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2 "
+            android:layout_weight="0"
             android:paddingTop="20dp"
             android:text="Select City :"
             android:textColor="#0000ff"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/spinner"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:entries="@array/context_view"/>
+
+        <Button
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:entries="@array/context_view"/>
+            android:text="@string/select_automatically"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
@@ -64,7 +74,7 @@
         android:paddingTop="10dp">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -81,7 +91,7 @@
         android:layout_height="270dp"
         android:layout_above="@id/button"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="20dp">
 
         <com.chabbal.slidingdotsplash.SlidingSplashView
             android:id="@+id/splash"
