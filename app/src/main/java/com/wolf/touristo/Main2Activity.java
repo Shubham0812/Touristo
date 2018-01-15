@@ -65,6 +65,7 @@ public class Main2Activity extends AppCompatActivity {
                     onSignedInInitialize(user.getDisplayName());
                 } else {
                     // User is signed out
+                    Toast.makeText(Main2Activity.this, "moI!", Toast.LENGTH_SHORT).show();
                     onSignedOutCleanup();
                     startActivityForResult(
                             AuthUI.getInstance()

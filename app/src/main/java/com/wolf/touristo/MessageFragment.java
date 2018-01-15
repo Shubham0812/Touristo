@@ -2,6 +2,7 @@ package com.wolf.touristo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -16,8 +17,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -26,14 +29,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 
 public class MessageFragment extends Fragment {
@@ -112,7 +116,7 @@ public class MessageFragment extends Fragment {
         // Initialize message ListView and its adapter
         final List<FriendlyMessage> friendlyMessages = new ArrayList<>();
         mMessageAdapter = new MessageAdapter(getContext(), R.layout.item_message, friendlyMessages);
-//        mMessageListView.setAdapter(mMessageAdapter);
+        mMessageListView.setAdapter(mMessageAdapter);
 
         // Initialize progress bar
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
@@ -170,10 +174,10 @@ public class MessageFragment extends Fragment {
                 if (user != null) {
                     // User is signed in
                     // Toast.makeText(MainActivity.this, "You're now signed in. Welcome to FriendlyChat.", Toast.LENGTH_SHORT).show();
-                    //onSignedInInitialize(user.getDisplayName());
+                    onSignedInInitialize(user.getDisplayName());
                 } else {
                     // User is signed out
-                    // onSignedOutCleanup();
+                    onSignedOutCleanup();
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
@@ -188,19 +192,38 @@ public class MessageFragment extends Fragment {
                 }
             }
         };
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(com.firebase.ui.auth.BuildConfig.DEBUG)
-                .build();
-        mFirebaseRemoteConfig.setConfigSettings(configSettings);
-
-        // Define default config values. Defaults are used when fetched config values are not
-        // available. Eg: if an error occurred fetching values from the server.
-        Map<String, Object> defaultConfigMap = new HashMap<>();
-        defaultConfigMap.put(FRIENDLY_MSG_LENGTH_KEY, DEFAULT_MSG_LENGTH_LIMIT);
-        mFirebaseRemoteConfig.setDefaults(defaultConfigMap);
-        //fetchConfig();
         return rootView;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                // Sign-in succeeded, set up the UI
+                Toast.makeText(getContext(), "Signed in!", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                // Sign in was canceled by the user, finish the activity
+                Toast.makeText(getContext(), "Sign in canceled", Toast.LENGTH_SHORT).show();
+                getActivity().finish();
+            }
+        } else if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
+            Uri selectedImageUri = data.getData();
+            StorageReference photoRef = mStorageReference.child(selectedImageUri.getLastPathSegment());
+            Toast.makeText(getContext(), "Here", Toast.LENGTH_SHORT);
+            photoRef.putFile(selectedImageUri)
+                    .addOnSuccessListener(getActivity(), new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            @SuppressWarnings("VisibleForTests") Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            // Set the download URL to the message box, so that the user can send it to the database
+                            FriendlyMessage friendlyMessage = new FriendlyMessage(null, mUsername, downloadUrl.toString());
+                            mDatabaseReference.push().setValue(friendlyMessage);
+                        }
+                    });
+
+        }
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String string) {
@@ -218,6 +241,11 @@ public class MessageFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        if (mAuthStateListener != null) {
+            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+        }
+        detachDatabaseReadListener();
+        mMessageAdapter.clear();
         mListener = null;
     }
 
@@ -230,11 +258,7 @@ public class MessageFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if (mAuthStateListener != null) {
-            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-        }
-        detachDatabaseReadListener();
-        mMessageAdapter.clear();
+
     }
 
     private void onSignedInInitialize(String displayName) {
