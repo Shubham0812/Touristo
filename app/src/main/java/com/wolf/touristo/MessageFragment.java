@@ -245,7 +245,7 @@ public class MessageFragment extends Fragment {
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
         detachDatabaseReadListener();
-        //     mMessageAdapter.clear();
+        mMessageAdapter.clear();
         mListener = null;
     }
 
