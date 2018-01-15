@@ -8,12 +8,19 @@
 
 
     <string-array name="context_view">
-        <item>------------------------------</item>
+        <item>-----------------------------------</item>
         <item>Bangalore</item>
         <item>Delhi</item>
         <item>Mumbai</item>
         <item>Calcutta</item>
         <item>Hyderabad</item>
     </string-array>
+
+    <integer-array name="img_id_arr">
+        <item>@drawable/slider1</item>
+        <item>@drawable/slider</item>
+        <item>@drawable/slider3</item>
+    </integer-array>
+
 
 </resources>

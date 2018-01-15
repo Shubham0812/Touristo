@@ -1,26 +1,22 @@
 package com.wolf.touristo;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 public class Main2Activity extends AppCompatActivity {
 
+    public static final int RC_SIGN_IN = 1;
     Button b1;
     TextView tv1;
     private String mUsername;
@@ -28,8 +24,6 @@ public class Main2Activity extends AppCompatActivity {
     private FirebaseAuth mFirebaseAuth;
     private Button b2,autoButton;
     private Spinner spinner;
-
-    public static final int RC_SIGN_IN = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +117,8 @@ public class Main2Activity extends AppCompatActivity {
 
     private void onSignedInInitialize(String displayName) {
         mUsername = displayName;
-        tv1.setText("Welcome," + " " +mUsername);
+        String name[] = mUsername.split(" ");
+        tv1.setText("Welcome," + " " + name[0]);
         //  attachDatabaseReadListener();
     }
 

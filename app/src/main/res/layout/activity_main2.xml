@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:layout_height="match_parent"
+    android:background="#ffca28"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context="com.wolf.touristo.Main2Activity">
 
 
@@ -12,37 +14,37 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#ff0000"
         android:layout_weight="1"
-        android:textSize="28sp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="#ff0000"
+        android:textSize="28sp" />
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_below="@id/textView"
-        android:paddingTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#2979FF"
+        android:layout_below="@id/textView"
         android:layout_weight="1 "
-        android:textSize="20sp"
-        android:text="@string/info" />
+        android:paddingTop="20dp"
+        android:text="@string/info"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
         android:id="@+id/linearLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/textView1"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
         <TextView
             android:id="@+id/textView2"
-            android:paddingTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#0000ff"
             android:layout_weight="2 "
-            android:textSize="20sp"
-            android:text="Select City :" />
+            android:paddingTop="20dp"
+            android:text="Select City :"
+            android:textColor="#0000ff"
+            android:textSize="20sp" />
 
         <Spinner
             android:id="@+id/spinner"
@@ -54,35 +56,49 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:paddingTop="10dp"
-        android:orientation="horizontal"
         android:id="@+id/linearLay1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/linearLay"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
+            android:layout_centerHorizontal="true"
+            android:text="@string/select_automatically"
             android:textAlignment="center"
-            android:textSize="14sp"
-            android:text="@string/select_automatically" />
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
 
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:layout_above="@id/button"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp">
+
+        <com.chabbal.slidingdotsplash.SlidingSplashView
+            android:id="@+id/splash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:imageResources="@array/img_id_arr" />
+
+    </LinearLayout>
 
 
     <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:id="@+id/button"
-        android:text="Continue"
-        android:layout_height="wrap_content" />
+        android:text="Continue" />
 
 
 
