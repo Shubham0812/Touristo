@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +26,8 @@ public class Main2Activity extends AppCompatActivity {
     private String mUsername;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseAuth mFirebaseAuth;
-    private Button b2;
+    private Button b2,autoButton;
+    private Spinner spinner;
 
     public static final int RC_SIGN_IN = 1;
 
@@ -33,8 +36,14 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+
+
         tv1 = (TextView)findViewById(R.id.textView);
         b1 = (Button)findViewById(R.id.button);
+        spinner = (Spinner)findViewById(R.id.spinner);
+
+        b2 =(Button)findViewById(R.id.button2);
+
         mFirebaseAuth = FirebaseAuth.getInstance();
         b1.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -43,6 +52,15 @@ public class Main2Activity extends AppCompatActivity {
             startActivity(it);
         }
     });
+
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinner.setSelection(1);
+            }
+        });
+
+
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
