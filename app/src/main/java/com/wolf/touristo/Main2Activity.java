@@ -125,6 +125,8 @@ public class Main2Activity extends AppCompatActivity {
 
     private void onSignedInInitialize(String displayName) {
         mUsername = displayName;
+        if (mUsername == null)
+            mUsername = "Shubham Singh";
         String name[] = mUsername.split(" ");
         tv1.setText("Welcome," + " " + name[0]);
         //  attachDatabaseReadListener();

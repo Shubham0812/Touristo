@@ -8,8 +8,7 @@
 
     <!-- Location Found -->
     <item
-        android:id="@+id/action_location_found"
-
+        android:id="@+id/About"
         android:title="About"
         app:showAsAction="never" />
 

@@ -1,6 +1,7 @@
 package com.wolf.touristo;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -100,6 +102,13 @@ public class MainActivity extends AppCompatActivity {
                 AuthUI.getInstance().signOut(this);
                 finish();
                 return true;
+            case R.id.About:
+                Snackbar mySnackbar = Snackbar.make(findViewById(R.id.main_content),
+                        "Application Created By Shubham0812", Snackbar.LENGTH_SHORT);
+                mySnackbar.show();
+                Toast.makeText(this, "Application Created By Shubham0812", Toast.LENGTH_SHORT).show();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
